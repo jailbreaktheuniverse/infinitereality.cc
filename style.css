@@ -1,13 +1,9 @@
+
+/* Base styles */
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
 }
 
 nav ul {
@@ -22,7 +18,6 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
     text-decoration: none;
 }
 
@@ -45,11 +40,57 @@ form button {
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
     text-align: center;
     padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
 }
+
+/* Light mode styles */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #fff;
+        color: #000;
+    }
+
+    header, footer {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    nav ul li a {
+        color: #333;
+    }
+
+    form button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    header, footer {
+        background-color: #333;
+        color: #fff;
+    }
+
+    nav ul li a {
+        color: #fff;
+    }
+
+    form button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+}
+
+
