@@ -1,8 +1,8 @@
 const canvas = document.getElementById('newspaperCanvas');
 const ctx = canvas.getContext('2d');
 
-let tiltX = 0; // Tilt left/right (gamma)
-let tiltY = 0; // Tilt forward/backward (beta)
+let scale = 0.01; // Initial scale for the tunnel effect
+let depth = 0; // Depth into the tunnel
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -12,16 +12,8 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-window.addEventListener('deviceorientation', (event) => {
-    tiltX = event.gamma;
-    tiltY = event.beta;
-});
-
-let angle = 0;
-let scale = 1; // Start with a scale of 1
-let pieces = 1;
 const images = [];
-const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg'];
+const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg', 'textures/image5.jpeg'];
 const logoImage = new Image();
 const logoURL = 'textures/image2.png';
 
@@ -48,31 +40,39 @@ imageURLs.forEach(url => {
 
 function drawTunnel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw tunnel walls
-    for (let i = 0; i < images.length; i++) {
+    const tunnelRadius = canvas.height / 2 * scale; // Radius of the tunnel
+    const slices = images.length; // Number of slices to divide the tunnel into
+
+    for (let i = 0; i < slices; i++) {
         ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate(angle + i * (Math.PI * 2 / images.length));
-        ctx.scale(scale, scale);
-        ctx.drawImage(images[i], -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+        // Calculate slice angle and position
+        const sliceAngle = (Math.PI * 2) / slices;
+        const angle = sliceAngle * i;
+
+        // Calculate the slice's position on the canvas
+        const x = canvas.width / 2 + Math.cos(angle) * tunnelRadius;
+        const y = canvas.height / 2 + Math.sin(angle) * tunnelRadius;
+
+        // Adjust the context to draw the slice
+        ctx.translate(x, y);
+        ctx.rotate(angle + Math.PI / 2); // Rotate to align with the tunnel's curvature
+        ctx.drawImage(images[i], -canvas.width / (slices * 2), -tunnelRadius, canvas.width / slices, canvas.height * scale);
+
         ctx.restore();
     }
 
     // Draw the end of the tunnel
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.scale(scale * 0.1, scale * 0.1); // Scale down the logo to simulate the end of the tunnel
-    ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2);
+    ctx.scale(scale, scale);
+    ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2, logoImage.width, logoImage.height);
     ctx.restore();
 
-    angle += 0.01; // Rotate the tunnel
-    scale *= 0.99; // Decrease scale to simulate zooming in
-    if (scale < 0.1) {
-        scale = 1; // Reset scale when it gets too small
-    }
+    // Update scale and depth for the animation
+    scale += 0.01;
+    depth += 1;
+    if (scale > 1) scale = 0.01; // Reset scale to loop the effect
 
     requestAnimationFrame(drawTunnel);
 }
