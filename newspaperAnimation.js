@@ -41,39 +41,45 @@ imageURLs.forEach(url => {
 function drawTunnel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const tunnelRadius = canvas.height / 2 * scale; // Radius of the tunnel
-    const slices = images.length; // Number of slices to divide the tunnel into
-    const depthPerSlice = 100; // Depth of each slice
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const numRings = 50; // Number of concentric rings to simulate depth
+    const ringSpacing = scale * 20; // Spacing between rings to simulate depth
     const rotationSpeed = 0.01; // Speed of rotation
+    const texturePerRing = 10; // Number of times the texture repeats around each ring
 
     depth += 2; // Move through the tunnel
-    if (depth > depthPerSlice) depth -= depthPerSlice; // Loop the depth to simulate infinite tunnel
+    let currentScale = scale;
 
-    for (let i = 0; i < slices; i++) {
+    for (let i = numRings; i > 0; i--) {
         ctx.save();
-        // Calculate slice angle and position
-        const sliceAngle = (Math.PI * 2) / slices;
-        const angle = sliceAngle * i + depth * rotationSpeed; // Add rotation based on depth
+        ctx.translate(centerX, centerY);
+        ctx.rotate(depth * rotationSpeed); // Rotate the tunnel
 
-        // Calculate the slice's position on the canvas
-        const x = canvas.width / 2 + Math.cos(angle) * tunnelRadius;
-        const y = canvas.height / 2 + Math.sin(angle) * tunnelRadius;
+        const radius = i * ringSpacing;
+        const circumference = 2 * Math.PI * radius;
+        const imageWidth = circumference / texturePerRing;
+        const imageHeight = ringSpacing;
 
-        // Adjust the context to draw the slice
-        ctx.translate(x, y);
-        ctx.rotate(angle + Math.PI / 2); // Rotate to align with the tunnel's curvature
+        for (let j = 0; j < texturePerRing; j++) {
+            const angle = (Math.PI * 2 / texturePerRing) * j;
+            const x = Math.cos(angle) * radius - imageWidth / 2;
+            const y = Math.sin(angle) * radius - imageHeight / 2;
 
-        // Tile the image along the depth of the tunnel
-        for (let j = -depth; j < canvas.height * scale; j += depthPerSlice) {
-            ctx.drawImage(images[i % images.length], -canvas.width / (slices * 2), j, canvas.width / slices, depthPerSlice);
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle + Math.PI / 2); // Align texture with the ring
+            ctx.drawImage(images[j % images.length], -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight);
+            ctx.restore();
         }
 
         ctx.restore();
+        currentScale *= 0.95; // Decrease scale for next ring to simulate depth
     }
 
     // Draw the end of the tunnel
     ctx.save();
-    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.translate(centerX, centerY);
     ctx.scale(scale, scale);
     ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2, logoImage.width, logoImage.height);
     ctx.restore();
