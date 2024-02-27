@@ -52,37 +52,39 @@ imageURLs.forEach(url => {
 
 
 function drawNewspaper() {
+    // Clear the canvas with transparency
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0)'; // Fully transparent
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
-
-    // Apply tilt based on device orientation
     ctx.rotate(tiltX * Math.PI / 180);
     ctx.rotate(tiltY * Math.PI / 180);
-
     ctx.scale(scale, scale);
     ctx.rotate(angle);
 
-    // Draw the main spinning newspaper (logo) with its specific image
+    // Set globalCompositeOperation to 'copy' for direct copy without alpha blending
+    ctx.globalCompositeOperation = 'copy';
     ctx.drawImage(logoImage, -50, -50, 100, 100);
+    // Reset globalCompositeOperation to default
+    ctx.globalCompositeOperation = 'source-over';
 
     ctx.restore();
 
-    angle += 0.2; // Increased spin speed
+    angle += 0.2;
     scale += 0.01;
-
     if (scale > 8) {
-        scale = 0.1; // Reset scale
-        pieces += 8; // Increase this value for more fragments
+        scale = 0.1;
+        pieces += 8;
     }
 
     for (let i = 0; i < pieces && i < images.length; i++) {
         ctx.save();
-        // Increase the base distance and the multiplier for the distance calculation
-        let distance = 300 + i * 50; // Increased base distance and separation between pieces
+        let distance = 300 + i * 50;
         let angleOffset = i * (Math.PI * 2 / pieces);
         ctx.translate(canvas.width / 2 + distance * Math.cos(angle + angleOffset), canvas.height / 2 + distance * Math.sin(angle + angleOffset));
-        ctx.scale(0.5, 0.5); // Increased scale for visual appeal
+        ctx.scale(0.5, 0.5);
         ctx.rotate(Math.random() * 2 * Math.PI);
         ctx.drawImage(images[i % images.length], -50, -50, 100, 100);
         ctx.restore();
@@ -90,4 +92,5 @@ function drawNewspaper() {
 
     requestAnimationFrame(drawNewspaper);
 }
+
 
