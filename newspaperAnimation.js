@@ -1,8 +1,14 @@
+
 const canvas = document.getElementById('newspaperCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas(); // Initial resize
+window.addEventListener('resize', resizeCanvas); // Resize when window size changes
 
 let angle = 0;
 let scale = 0.1;
@@ -12,11 +18,18 @@ const imageURLs = ['textures/image1.jpg', 'textures/image4.jpg', 'textures/image
 const logoImage = new Image(); // Image for the logo
 const logoURL = 'textures/image2.jpg'; // URL for the logo image
 
+let loadedImagesCount = 0; // Counter for loaded images
+
+function imageLoaded() {
+    loadedImagesCount++;
+    if (loadedImagesCount === imageURLs.length + 1) { // +1 for the logo image
+        drawNewspaper(); // Start drawing when all images are loaded
+    }
+}
+
 // Load logo image
 logoImage.src = logoURL;
-logoImage.onload = () => {
-    drawNewspaper(); // Start drawing when the logo image is loaded
-};
+logoImage.onload = imageLoaded;
 
 // Load fractal piece images and store them in the images array
 imageURLs.forEach(url => {
@@ -24,6 +37,7 @@ imageURLs.forEach(url => {
     img.src = url;
     img.onload = () => {
         images.push(img);
+        imageLoaded();
     };
 });
 
@@ -59,3 +73,4 @@ function drawNewspaper() {
 
     requestAnimationFrame(drawNewspaper);
 }
+
