@@ -71,7 +71,7 @@ function drawNewspaper() {
     angle += 0.2; // Increased spin speed
     scale += 0.01;
 
-    if (scale > 4) {
+    if (scale > 8) {
         scale = 0.1; // Reset scale
         pieces += 8; // Increase this value for more fragments
     }
@@ -79,7 +79,7 @@ function drawNewspaper() {
     for (let i = 0; i < pieces && i < images.length; i++) {
         ctx.save();
         // Increase the base distance and the multiplier for the distance calculation
-        let distance = 100 + i * 50; // Increased base distance and separation between pieces
+        let distance = 300 + i * 50; // Increased base distance and separation between pieces
         let angleOffset = i * (Math.PI * 2 / pieces);
         ctx.translate(canvas.width / 2 + distance * Math.cos(angle + angleOffset), canvas.height / 2 + distance * Math.sin(angle + angleOffset));
         ctx.scale(0.5, 0.5); // Increased scale for visual appeal
