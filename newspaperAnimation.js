@@ -14,9 +14,9 @@ let angle = 0;
 let scale = 0.1;
 let pieces = 1;
 const images = []; // Array to hold fractal piece images
-const imageURLs = ['textures/image1.jpg', 'textures/image4.jpg', 'textures/image0.jpg', 'textures/image3.jpg','textures/image5.jpg']; // Add your fractal piece image URLs here
+const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg']; // Add your fractal piece image URLs here
 const logoImage = new Image(); // Image for the logo
-const logoURL = 'textures/image2.jpg'; // URL for the logo image
+const logoURL = 'textures/image2.jpeg'; // URL for the logo image
 
 let loadedImagesCount = 0; // Counter for loaded images
 
