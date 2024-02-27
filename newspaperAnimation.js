@@ -48,7 +48,7 @@ function drawTunnel() {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const numRings = 100; //changed to 100
+    const numRings = 500; //changed to 100
     const ringSpacing = scale * 20;
     const rotationSpeed = 0.01;
     const texturePerRing = 10;
