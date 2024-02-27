@@ -43,51 +43,52 @@ function drawTunnel() {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const numRings = 50; // Number of concentric rings to simulate depth
-    const ringSpacing = scale * 20; // Spacing between rings to simulate depth
-    const rotationSpeed = 0.01; // Speed of rotation
-    const texturePerRing = 10; // Number of times the texture repeats around each ring
+    const numRings = 100; // Number of rings to simulate depth
+    const tunnelDepth = 1000; // Depth of the tunnel
+    const fov = Math.PI / 4; // Field of view
+    const viewDistance = (canvas.width / 2) / Math.tan(fov / 2); // Distance from viewer to screen
 
-    depth += 2; // Move through the tunnel
-    let currentScale = scale;
+    let z = 0; // Depth position of each ring
 
-    for (let i = numRings; i > 0; i--) {
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(depth * rotationSpeed); // Rotate the tunnel
+    for (let i = 0; i < numRings; i++) {
+        const ringDistance = i * (tunnelDepth / numRings);
+        const nextRingDistance = (i + 1) * (tunnelDepth / numRings);
+        const ringRadius = (canvas.width / 2) * (ringDistance / viewDistance);
+        const nextRingRadius = (canvas.width / 2) * (nextRingDistance / viewDistance);
 
-        const radius = i * ringSpacing;
-        const circumference = 2 * Math.PI * radius;
-        const imageWidth = circumference / texturePerRing;
-        const imageHeight = ringSpacing;
+        // Calculate the angle step to keep the texture mapping consistent
+        const texturePerRing = 20;
+        const angleStep = (Math.PI * 2) / texturePerRing;
 
         for (let j = 0; j < texturePerRing; j++) {
-            const angle = (Math.PI * 2 / texturePerRing) * j;
-            const x = Math.cos(angle) * radius - imageWidth / 2;
-            const y = Math.sin(angle) * radius - imageHeight / 2;
+            const angle = j * angleStep;
+            const nextAngle = (j + 1) * angleStep;
 
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(angle + Math.PI / 2); // Align texture with the ring
-            ctx.drawImage(images[j % images.length], -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight);
-            ctx.restore();
+            // Calculate the four points of the current segment
+            const x1 = centerX + Math.cos(angle) * ringRadius;
+            const y1 = centerY + Math.sin(angle) * ringRadius;
+            const x2 = centerX + Math.cos(nextAngle) * ringRadius;
+            const y2 = centerY + Math.sin(nextAngle) * ringRadius;
+            const x3 = centerX + Math.cos(nextAngle) * nextRingRadius;
+            const y3 = centerY + Math.sin(nextAngle) * nextRingRadius;
+            const x4 = centerX + Math.cos(angle) * nextRingRadius;
+            const y4 = centerY + Math.sin(angle) * nextRingRadius;
+
+            // Draw the segment
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x3, y3);
+            ctx.lineTo(x4, y4);
+            ctx.closePath();
+
+            // Texture mapping or color
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'; // Placeholder for texture or color
+            ctx.fill();
         }
-
-        ctx.restore();
-        currentScale *= 0.95; // Decrease scale for next ring to simulate depth
     }
-
-    // Draw the end of the tunnel
-    ctx.save();
-    ctx.translate(centerX, centerY);
-    ctx.scale(scale, scale);
-    ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2, logoImage.width, logoImage.height);
-    ctx.restore();
-
-    // Update scale for the animation
-    scale += 0.005;
-    if (scale > 1) scale = 0.01; // Reset scale to loop the effect
 
     requestAnimationFrame(drawTunnel);
 }
+
 
