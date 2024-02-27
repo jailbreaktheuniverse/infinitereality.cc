@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('newspaperCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -53,19 +52,30 @@ function drawNewspaper() {
 
     ctx.restore();
 
-    angle += 0.1;
+    angle += 0.2; // Increased spin speed
     scale += 0.01;
+
+    // Assuming the maximum scale is when the logo's size is about the size of the canvas
+    // This threshold can be adjusted based on the desired "maximum" size
+    let maxScaleThreshold = Math.min(canvas.width, canvas.height) / 100; // Example threshold
+
+    if (scale > maxScaleThreshold) {
+        window.location.href = '/infinitereality.html'; // Redirect
+        return; // Stop the animation loop
+    }
 
     if (scale > 2) {
         scale = 0.1; // Reset scale
-        pieces++; // Increase pieces to simulate fractal disintegration
+        pieces += 2; // Increase pieces more rapidly to simulate fractal disintegration
     }
 
     // Draw fractal disintegration pieces with different images as textures
     for (let i = 0; i < pieces && i < images.length; i++) {
         ctx.save();
-        ctx.translate((Math.random() - 0.5) * canvas.width, (Math.random() - 0.5) * canvas.height);
-        ctx.scale(0.1, 0.1); // Smaller pieces
+        let distance = 50 + i * 10; // Increase distance from center based on the piece index
+        let angleOffset = i * (Math.PI * 2 / pieces);
+        ctx.translate(canvas.width / 2 + distance * Math.cos(angle + angleOffset), canvas.height / 2 + distance * Math.sin(angle + angleOffset));
+        ctx.scale(0.2, 0.2); // Increased size of pieces
         ctx.rotate(Math.random() * 2 * Math.PI);
         ctx.drawImage(images[i % images.length], -50, -50, 100, 100);
         ctx.restore();
@@ -73,4 +83,3 @@ function drawNewspaper() {
 
     requestAnimationFrame(drawNewspaper);
 }
-
