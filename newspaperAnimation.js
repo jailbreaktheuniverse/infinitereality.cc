@@ -73,17 +73,16 @@ function drawNewspaper() {
 
     if (scale > 4) {
         scale = 0.1; // Reset scale
-        // Increase pieces more rapidly to simulate fractal disintegration
-        // Adjust the multiplier (e.g., 4 to 8) to control the increase rate
         pieces += 8; // Increase this value for more fragments
     }
 
     for (let i = 0; i < pieces && i < images.length; i++) {
         ctx.save();
-        let distance = 50 + i * 10;
+        // Increase the base distance and the multiplier for the distance calculation
+        let distance = 100 + i * 50; // Increased base distance and separation between pieces
         let angleOffset = i * (Math.PI * 2 / pieces);
         ctx.translate(canvas.width / 2 + distance * Math.cos(angle + angleOffset), canvas.height / 2 + distance * Math.sin(angle + angleOffset));
-        ctx.scale(0.2, 0.2); // You might want to adjust this scale for visual appeal
+        ctx.scale(0.5, 0.5); // Increased scale for visual appeal
         ctx.rotate(Math.random() * 2 * Math.PI);
         ctx.drawImage(images[i % images.length], -50, -50, 100, 100);
         ctx.restore();
@@ -91,3 +90,4 @@ function drawNewspaper() {
 
     requestAnimationFrame(drawNewspaper);
 }
+
