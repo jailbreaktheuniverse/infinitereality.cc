@@ -43,12 +43,17 @@ function drawTunnel() {
 
     const tunnelRadius = canvas.height / 2 * scale; // Radius of the tunnel
     const slices = images.length; // Number of slices to divide the tunnel into
+    const depthPerSlice = 100; // Depth of each slice
+    const rotationSpeed = 0.01; // Speed of rotation
+
+    depth += 2; // Move through the tunnel
+    if (depth > depthPerSlice) depth -= depthPerSlice; // Loop the depth to simulate infinite tunnel
 
     for (let i = 0; i < slices; i++) {
         ctx.save();
         // Calculate slice angle and position
         const sliceAngle = (Math.PI * 2) / slices;
-        const angle = sliceAngle * i;
+        const angle = sliceAngle * i + depth * rotationSpeed; // Add rotation based on depth
 
         // Calculate the slice's position on the canvas
         const x = canvas.width / 2 + Math.cos(angle) * tunnelRadius;
@@ -57,7 +62,11 @@ function drawTunnel() {
         // Adjust the context to draw the slice
         ctx.translate(x, y);
         ctx.rotate(angle + Math.PI / 2); // Rotate to align with the tunnel's curvature
-        ctx.drawImage(images[i], -canvas.width / (slices * 2), -tunnelRadius, canvas.width / slices, canvas.height * scale);
+
+        // Tile the image along the depth of the tunnel
+        for (let j = -depth; j < canvas.height * scale; j += depthPerSlice) {
+            ctx.drawImage(images[i % images.length], -canvas.width / (slices * 2), j, canvas.width / slices, depthPerSlice);
+        }
 
         ctx.restore();
     }
@@ -69,10 +78,10 @@ function drawTunnel() {
     ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2, logoImage.width, logoImage.height);
     ctx.restore();
 
-    // Update scale and depth for the animation
-    scale += 0.01;
-    depth += 1;
+    // Update scale for the animation
+    scale += 0.005;
     if (scale > 1) scale = 0.01; // Reset scale to loop the effect
 
     requestAnimationFrame(drawTunnel);
 }
+
