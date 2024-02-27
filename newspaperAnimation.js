@@ -1,3 +1,46 @@
+const canvas = document.getElementById('newspaperCanvas');
+const ctx = canvas.getContext('2d');
+
+let scale = 0.01; // Initial scale for the tunnel effect
+let depth = 0; // Depth into the tunnel
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const images = [];
+const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg', 'textures/image5.jpeg'];
+const logoImage = new Image();
+const logoURL = 'textures/image2.png';
+
+let loadedImagesCount = 0;
+
+function imageLoaded() {
+    loadedImagesCount++;
+    if (loadedImagesCount === imageURLs.length + 1) {
+        drawTunnel();
+    }
+}
+
+logoImage.src = logoURL;
+logoImage.onload = imageLoaded;
+
+imageURLs.forEach(url => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+        images.push(img);
+        imageLoaded();
+    };
+});
+
+let logoRotation = 0; // Initialize logo rotation
+
+
 function drawTunnel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
