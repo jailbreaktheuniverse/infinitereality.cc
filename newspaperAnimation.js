@@ -27,7 +27,7 @@ let pieces = 1;
 const images = [];
 const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg'];
 const logoImage = new Image();
-const logoURL = 'textures/image2.jpeg';
+const logoURL = 'textures/image2.png';
 
 let loadedImagesCount = 0;
 
