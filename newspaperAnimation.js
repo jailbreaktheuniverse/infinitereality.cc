@@ -13,7 +13,7 @@ let angle = 0;
 let scale = 0.1;
 let pieces = 15;
 const images = []; // Array to hold fractal piece images
-const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg']; // Add your fractal piece image URLs here
+const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg','textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg','textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg','textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg','textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg','textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg']; // Add your fractal piece image URLs here
 const logoImage = new Image(); // Image for the logo
 const logoURL = 'textures/image2.jpeg'; // URL for the logo image
 
@@ -26,7 +26,7 @@ function imageLoaded() {
         // Redirect after 5 seconds
         setTimeout(() => {
             window.location.href = '/infinitereality.html';
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }, 3000); // 5000 milliseconds = 5 seconds
     }
 }
 
