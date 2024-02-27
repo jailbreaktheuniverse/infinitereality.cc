@@ -71,11 +71,11 @@ function drawNewspaper() {
     angle += 0.2; // Increased spin speed
     scale += 0.01;
 
-    if (scale > 2) {
+    if (scale > 4) {
         scale = 0.1; // Reset scale
         // Increase pieces more rapidly to simulate fractal disintegration
         // Adjust the multiplier (e.g., 4 to 8) to control the increase rate
-        pieces += 4; // Increase this value for more fragments
+        pieces += 8; // Increase this value for more fragments
     }
 
     for (let i = 0; i < pieces && i < images.length; i++) {
