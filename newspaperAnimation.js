@@ -1,45 +1,3 @@
-const canvas = document.getElementById('newspaperCanvas');
-const ctx = canvas.getContext('2d');
-
-let scale = 0.01; // Initial scale for the tunnel effect
-let depth = 0; // Depth into the tunnel
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const images = [];
-const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg', 'textures/image5.jpeg'];
-const logoImage = new Image();
-const logoURL = 'textures/image2.png';
-
-let loadedImagesCount = 0;
-
-function imageLoaded() {
-    loadedImagesCount++;
-    if (loadedImagesCount === imageURLs.length + 1) {
-        drawTunnel();
-    }
-}
-
-logoImage.src = logoURL;
-logoImage.onload = imageLoaded;
-
-imageURLs.forEach(url => {
-    const img = new Image();
-    img.src = url;
-    img.onload = () => {
-        images.push(img);
-        imageLoaded();
-    };
-});
-
-let logoRotation = 0; // Initialize logo rotation
-
 function drawTunnel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -50,11 +8,9 @@ function drawTunnel() {
     const fov = Math.PI / 4;
     const viewDistance = (canvas.width / 2) / Math.tan(fov / 2);
 
-    // Tunnel rotation (for demonstration, adjust as needed)
     const tunnelRotationSpeed = 0.01;
     let tunnelRotation = performance.now() * tunnelRotationSpeed;
 
-    // Logo rotation speed (opposite direction, adjust magnitude as needed)
     const logoRotationSpeed = -0.02;
     logoRotation += logoRotationSpeed;
 
@@ -64,11 +20,11 @@ function drawTunnel() {
         const ringRadius = (canvas.width / 2) * (ringDistance / viewDistance);
         const nextRingRadius = (canvas.width / 2) * (nextRingDistance / viewDistance);
 
-        const texturePerRing = 20;
+        const texturePerRing = images.length; // Use the number of loaded images for texture mapping
         const angleStep = (Math.PI * 2) / texturePerRing;
 
         for (let j = 0; j < texturePerRing; j++) {
-            const angle = j * angleStep + tunnelRotation; // Apply tunnel rotation
+            const angle = j * angleStep + tunnelRotation;
             const nextAngle = (j + 1) * angleStep + tunnelRotation;
 
             const x1 = centerX + Math.cos(angle) * ringRadius;
@@ -80,25 +36,39 @@ function drawTunnel() {
             const x4 = centerX + Math.cos(angle) * nextRingRadius;
             const y4 = centerY + Math.sin(angle) * nextRingRadius;
 
+            // Choose an image based on the current segment
+            const img = images[j % images.length];
+
+            // Draw the image segment
+            ctx.save();
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.lineTo(x3, y3);
             ctx.lineTo(x4, y4);
             ctx.closePath();
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.fill();
+            ctx.clip();
+
+            // Calculate the image's drawing dimensions
+            const imgWidth = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+            const imgHeight = Math.sqrt((x3 - x2) ** 2 + (y3 - y2) ** 2);
+            const centerX = (x1 + x2 + x3 + x4) / 4;
+            const centerY = (y1 + y2 + y3 + y4) / 4;
+
+            ctx.translate(centerX, centerY);
+            ctx.rotate(angle + Math.PI / 2);
+            ctx.drawImage(img, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight);
+
+            ctx.restore();
         }
     }
 
     // Draw rotating logo at the end of the tunnel
     ctx.save();
     ctx.translate(centerX, centerY);
-    ctx.rotate(logoRotation); // Apply logo rotation
+    ctx.rotate(logoRotation);
     ctx.drawImage(logoImage, -logoImage.width / 2, -logoImage.height / 2, logoImage.width, logoImage.height);
     ctx.restore();
 
     requestAnimationFrame(drawTunnel);
 }
-
-
