@@ -24,6 +24,51 @@
     <style>
         body, html { height: 100%; margin: 0; }
         canvas { width: 100%; height: 100%; }
+        /* Light mode styles */
+    @media (prefers-color-scheme: light) {
+        body {
+            background-color: #fff;
+            color: #000;
+        }
+    
+        header, footer {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    
+        nav ul li a {
+            color: #333;
+        }
+    
+        form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+    }
+    
+    /* Dark mode styles */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+    
+        header, footer {
+            background-color: #333;
+            color: #fff;
+        }
+    
+        nav ul li a {
+            color: #fff;
+        }
+    
+        form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+    }
     </style>
 </head>
 <body>
