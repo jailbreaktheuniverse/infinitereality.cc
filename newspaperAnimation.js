@@ -41,7 +41,7 @@ imageURLs.forEach(url => {
 let logoRotation = 0; // Initialize logo rotation variable
 let logoScale = 0.01; // Initial scale for the logo
 const logoScaleSpeed = 0.01; // Speed at which the logo scale increases
-const maxLogoScale = 5; // Maximum scale for the logo, adjust as needed to fill the screen
+const maxLogoScale = 4; // Maximum scale for the logo, adjust as needed to fill the screen
 
 function drawTunnel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
