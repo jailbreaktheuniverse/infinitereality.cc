@@ -11,7 +11,7 @@ window.addEventListener('resize', resizeCanvas); // Resize when window size chan
 
 let angle = 0;
 let scale = 0.1;
-let pieces = 1;
+let pieces = 15;
 const images = []; // Array to hold fractal piece images
 const imageURLs = ['textures/image1.jpeg', 'textures/image4.jpeg', 'textures/image0.jpeg', 'textures/image3.jpeg','textures/image5.jpeg']; // Add your fractal piece image URLs here
 const logoImage = new Image(); // Image for the logo
@@ -23,6 +23,10 @@ function imageLoaded() {
     loadedImagesCount++;
     if (loadedImagesCount === imageURLs.length + 1) { // +1 for the logo image
         drawNewspaper(); // Start drawing when all images are loaded
+        // Redirect after 5 seconds
+        setTimeout(() => {
+            window.location.href = '/infinitereality.html';
+        }, 5000); // 5000 milliseconds = 5 seconds
     }
 }
 
@@ -45,6 +49,8 @@ function drawNewspaper() {
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.scale(scale, scale);
+    // Increase the angle increment for faster spinning
+    angle += 0.5; // Adjust this value to make the spinning faster
     ctx.rotate(angle);
 
     // Draw the main spinning newspaper (logo) with its specific image
@@ -52,17 +58,7 @@ function drawNewspaper() {
 
     ctx.restore();
 
-    angle += 0.2; // Increased spin speed
     scale += 0.01;
-
-    // Assuming the maximum scale is when the logo's size is about the size of the canvas
-    // This threshold can be adjusted based on the desired "maximum" size
-    let maxScaleThreshold = Math.min(canvas.width, canvas.height) / 100; // Example threshold
-
-    if (scale > maxScaleThreshold) {
-        window.location.href = '/infinitereality.html'; // Redirect
-        return; // Stop the animation loop
-    }
 
     if (scale > 2) {
         scale = 0.1; // Reset scale
