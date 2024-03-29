@@ -24,13 +24,24 @@ let selectedUrls = []; // This will hold the URLs of the selected images
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-// Function to handle mouse clicks
-function onMouseClick(event) {
+// Function to handle interaction (both touch and click)
+function onInteract(event) {
     event.preventDefault();
 
+    let x, y;
+
+    // Check if the event is a touch event
+    if (event.changedTouches) {
+        x = event.changedTouches[0].pageX;
+        y = event.changedTouches[0].pageY;
+    } else { // Else, it's a mouse event
+        x = event.clientX;
+        y = event.clientY;
+    }
+
     // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    mouse.x = (x / window.innerWidth) * 2 - 1;
+    mouse.y = - (y / window.innerHeight) * 2 + 1;
 
     // Update the picking ray with the camera and mouse position
     raycaster.setFromCamera(mouse, camera);
@@ -49,8 +60,9 @@ function onMouseClick(event) {
     }
 }
 
-// Add event listener for mouse clicks
-window.addEventListener('click', onMouseClick, false);
+// Add event listeners for both touch and click
+window.addEventListener('click', onInteract, false);
+window.addEventListener('touchstart', onInteract, false);
 
 // Fetch the list of images from the GitHub repository and initialize the cube and background
 fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
