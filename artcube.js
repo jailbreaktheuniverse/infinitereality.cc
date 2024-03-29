@@ -10,6 +10,35 @@ const owner = 'jailbreaktheuniverse';
 const repo = 'infinitereality.cc';
 const path = 'art';
 
+// Raycaster for detecting clicks on the cube
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+// Function to handle mouse clicks
+function onMouseClick(event) {
+    // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    // Update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // Calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    for (let i = 0; i < intersects.length; i++) {
+        if (intersects[i].object === cube) {
+            const materialIndex = intersects[i].face.materialIndex;
+            const selectedImageUrl = selectedUrls[materialIndex];
+            window.open(selectedImageUrl, '_blank'); // Open the full-resolution image in a new tab
+            break;
+        }
+    }
+}
+
+// Add event listener for mouse clicks
+window.addEventListener('click', onMouseClick, false);
+
 // Fetch the list of images from the GitHub repository
 fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
     .then(response => response.json())
@@ -24,14 +53,17 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
         // Load textures from the selected URLs
         const textures = selectedUrls.map(url => new THREE.TextureLoader().load(url));
 
+        // Adjust the cube size based on the window height
+        const size = window.innerHeight * 0.75 / window.devicePixelRatio; // Adjust the 0.75 as needed
+        const geometry = new THREE.BoxGeometry(size, size, size);
+
         // Create a cube with the selected images
-        const geometry = new THREE.BoxGeometry();
         const materialArray = textures.map(texture => new THREE.MeshBasicMaterial({ map: texture }));
         const cube = new THREE.Mesh(geometry, materialArray);
         scene.add(cube);
 
         // Position the camera
-        camera.position.z = 5;
+        camera.position.z = size * 1.5; // Adjust camera position based on cube size
 
         // Function to animate the cube
         function animate() {
