@@ -16,11 +16,11 @@ const repo = 'infinitereality.cc';
 const path = 'art';
 
 // Declare variables at the top of your script to ensure they're accessible globally
-let dodecahedron;
+let cube;
 let currentBackgroundMesh;
 let selectedUrls = []; // This will hold the URLs of the selected images
 
-// Raycaster for detecting clicks on the dodecahedron
+// Raycaster for detecting clicks on the cube
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -52,7 +52,7 @@ function onInteract(event) {
     if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
 
-        if (intersectedObject === dodecahedron) {
+        if (intersectedObject === cube) {
             const materialIndex = intersects[0].face.materialIndex;
             const selectedImageUrl = selectedUrls[materialIndex];
             window.open(selectedImageUrl, '_blank'); // Open the full-resolution image in a new tab
@@ -64,30 +64,29 @@ function onInteract(event) {
 window.addEventListener('click', onInteract, false);
 window.addEventListener('touchstart', onInteract, false);
 
-// Fetch the list of images from the GitHub repository and initialize the dodecahedron and background
+// Fetch the list of images from the GitHub repository and initialize the cube and background
 fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
     .then(response => response.json())
     .then(data => {
         const imageUrls = data.filter(item => item.name.match(/\.(jpg|jpeg|png|gif)$/i))
                               .map(item => item.download_url);
 
-        // Randomly select 12 images for the dodecahedron
-        selectedUrls = imageUrls.sort(() => 0.5 - Math.random()).slice(0, 12);
+        // Randomly select 6 images for the cube, use the first for the background
+        selectedUrls = imageUrls.sort(() => 0.5 - Math.random()).slice(0, 6);
 
         // Initialize the background with the first selected image
         updateBackground(selectedUrls[0]);
 
-        // Initialize the dodecahedron with the selected images
-        const verticalFitFactor = 1.5; // Adjust this factor as needed to fit the dodecahedron within the window
-        const radius = (window.innerHeight / verticalFitFactor) / window.devicePixelRatio;
-        const geometry = new THREE.DodecahedronGeometry(radius, 0);
-        const materials = selectedUrls.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
+        // Initialize the cube with the selected images
+        const size = window.innerHeight * 0.75 / window.devicePixelRatio;
+        const geometry = new THREE.BoxGeometry(size, size, size);
+        const textures = selectedUrls.map(url => new THREE.TextureLoader().load(url));
+        const materialArray = textures.map(texture => new THREE.MeshBasicMaterial({ map: texture }));
+        cube = new THREE.Mesh(geometry, materialArray);
+        scene.add(cube);
+        camera.position.z = size * 1.5;
 
-        dodecahedron = new THREE.Mesh(geometry, materials);
-        scene.add(dodecahedron);
-        camera.position.z = radius * 3; // Adjust camera position based on dodecahedron size
-
-        // Start the animation loop after the dodecahedron has been created
+        // Start the animation loop after the cube has been created
         animate();
     });
 
@@ -118,10 +117,10 @@ function updateBackground(imageUrl) {
 function animate() {
     requestAnimationFrame(animate);
 
-    // Ensure dodecahedron is defined before attempting to access its properties
-    if (dodecahedron) {
-        dodecahedron.rotation.x += 0.01;
-        dodecahedron.rotation.y += 0.01;
+    // Ensure cube is defined before attempting to access its properties
+    if (cube) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
     }
 
     renderer.autoClear = false;
