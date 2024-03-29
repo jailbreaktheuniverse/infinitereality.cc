@@ -78,7 +78,8 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
         updateBackground(selectedUrls[0]);
 
         // Initialize the dodecahedron with the selected images
-        const radius = window.innerHeight * 0.75 / window.devicePixelRatio / 2; // Adjust the radius as needed
+        const verticalFitFactor = 1.5; // Adjust this factor as needed to fit the dodecahedron within the window
+        const radius = (window.innerHeight / verticalFitFactor) / window.devicePixelRatio;
         const geometry = new THREE.DodecahedronGeometry(radius, 0);
         const materials = selectedUrls.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
 
