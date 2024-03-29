@@ -19,8 +19,10 @@ const path = 'art';
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-// Function to handle mouse clicks
+// Adjust the mouse click event listener to ensure it's capturing clicks correctly
 function onMouseClick(event) {
+    event.preventDefault();
+
     // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
@@ -29,14 +31,19 @@ function onMouseClick(event) {
     raycaster.setFromCamera(mouse, camera);
 
     // Calculate objects intersecting the picking ray
-    const intersects = raycaster.intersectObjects(scene.children);
+    const intersects = raycaster.intersectObjects(scene.children, true);
 
-    for (let i = 0; i < intersects.length; i++) {
-        if (intersects[i].object === cube) {
-            const materialIndex = intersects[i].face.materialIndex;
+    console.log(intersects); // Debugging: Log intersects to see if the cube is detected
+
+    if (intersects.length > 0) {
+        const intersectedObject = intersects[0].object;
+
+        // Assuming each face of the cube has a direct mapping to the selectedUrls array
+        if (intersectedObject === cube) {
+            const materialIndex = intersects[0].face.materialIndex;
             const selectedImageUrl = selectedUrls[materialIndex];
+            console.log(`Opening image URL: ${selectedImageUrl}`); // Debugging: Log the URL to be opened
             window.open(selectedImageUrl, '_blank'); // Open the full-resolution image in a new tab
-            break;
         }
     }
 }
