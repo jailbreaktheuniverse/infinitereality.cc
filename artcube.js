@@ -93,7 +93,7 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
         // Load and play spatial audio
         const audioLoader = new THREE.AudioLoader();
         const sound = new THREE.PositionalAudio(listener);
-        audioLoader.load('artcube.mp3', function(buffer) {
+        audioLoader.load('Artcube.m4a', function(buffer) {
             sound.setBuffer(buffer);
             sound.setRefDistance(20);
             sound.setLoop(true);
