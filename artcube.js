@@ -5,6 +5,10 @@ const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+// Add an AudioListener to the camera
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
 // Initialize the background scene and camera
 const backgroundScene = new THREE.Scene();
 const backgroundCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -85,6 +89,18 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`)
         cube = new THREE.Mesh(geometry, materialArray);
         scene.add(cube);
         camera.position.z = size * 1.5;
+
+        // Load and play spatial audio
+        const audioLoader = new THREE.AudioLoader();
+        const sound = new THREE.PositionalAudio(listener);
+        audioLoader.load('artcube.mp3', function(buffer) {
+            sound.setBuffer(buffer);
+            sound.setRefDistance(20);
+            sound.setLoop(true);
+            sound.setVolume(0.5);
+            sound.play();
+        });
+        cube.add(sound); // Attach the sound to the cube
 
         // Start the animation loop after the cube has been created
         animate();
