@@ -19,7 +19,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: inherit; /* Ensures the link color matches the text color */
+    color: inherit;
 }
 
 section {
@@ -31,8 +31,11 @@ section {
     margin: 20px 0;
     background-size: cover;
     background-repeat: no-repeat;
-    /* Solid, semi-transparent background for better readability */
-    background-color: rgba(255, 255, 255, 0.95); /* Light theme, more opaque */
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.spacer {
+    height: 50px;
 }
 
 footer {
@@ -55,7 +58,7 @@ footer {
     }
 
     header, footer {
-        background-color: rgba(240, 240, 240, 0.95); /* More opaque */
+        background-color: rgba(240, 240, 240, 0.95);
         color: #333;
     }
 
@@ -78,7 +81,7 @@ footer {
     }
 
     header, footer {
-        background-color: rgba(51, 51, 51, 0.95); /* More opaque */
+        background-color: rgba(51, 51, 51, 0.95);
         color: #fff;
     }
 
@@ -91,4 +94,15 @@ footer {
         color: #fff;
         border: none;
     }
+}
+
+/* eInk Mode Styles */
+.eink-mode, .eink-mode * {
+    background-image: none !important; /* Remove all background images */
+    background-color: #FFFFFF !important; /* Set background to white */
+    color: #000000 !important; /* Set text color to black */
+}
+
+.eink-mode nav ul li a, .eink-mode footer a {
+    color: #000000 !important; /* Ensure links are also black */
 }
