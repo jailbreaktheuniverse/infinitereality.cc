@@ -19,6 +19,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
+    color: inherit; /* Ensures the link color matches the text color */
 }
 
 section {
@@ -30,6 +31,9 @@ section {
     margin: 20px 0;
     background-size: cover;
     background-repeat: no-repeat;
+    /* Adding semi-transparent background with blur effect */
+    background-color: rgba(255, 255, 255, 0.8); /* Light theme */
+    backdrop-filter: blur(10px);
 }
 
 footer {
@@ -41,6 +45,8 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 /* Light mode styles */
@@ -51,8 +57,9 @@ footer {
     }
 
     header, footer {
-        background-color: #f0f0f0;
+        background-color: rgba(240, 240, 240, 0.8);
         color: #333;
+        backdrop-filter: blur(10px);
     }
 
     nav ul li a {
@@ -74,8 +81,9 @@ footer {
     }
 
     header, footer {
-        background-color: #333;
+        background-color: rgba(51, 51, 51, 0.8);
         color: #fff;
+        backdrop-filter: blur(10px);
     }
 
     nav ul li a {
