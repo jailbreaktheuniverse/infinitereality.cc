@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isEinkDevice) {
         document.body.classList.add('eink-mode');
     } else {
-        // Load background images if not an eInk device
         const sections = document.querySelectorAll('section');
         const apiUrl = 'https://api.github.com/repos/jailbreaktheuniverse/infinitereality.cc/contents/art';
 
@@ -15,11 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 const images = data.filter(file => /\.(jpe?g)$/i.test(file.name)).map(file => file.download_url);
                 sections.forEach((section, index) => {
+                    const imageContainer = section.querySelector('.background-image-container');
                     const randomImage = images[Math.floor(Math.random() * images.length)];
-                    section.style.backgroundImage = `url(${randomImage})`;
-                    section.classList.add('glass-effect', 'image-adjust'); // Apply CSS classes
-                    section.style.backgroundRepeat = 'no-repeat';
-                    section.style.backgroundSize = 'cover';
+                    imageContainer.style.backgroundImage = `url(${randomImage})`;
+                    imageContainer.classList.add('image-adjust');
+                    imageContainer.style.backgroundRepeat = 'no-repeat';
+                    imageContainer.style.backgroundSize = 'cover';
                 });
             })
             .catch(error => console.error('Error loading images:', error));
