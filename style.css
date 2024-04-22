@@ -123,13 +123,13 @@ footer {
 /* Light mode image adjustments */
 @media (prefers-color-scheme: light) {
     .image-adjust {
-        filter: brightness(120%) contrast(100%); /* Brighter in light mode */
+        filter: brightness(150%) contrast(100%); /* Brighter in light mode */
     }
 }
 
 /* Dark mode image adjustments */
 @media (prefers-color-scheme: dark) {
     .image-adjust {
-        filter: brightness(50%) contrast(150%); /* Darker and higher contrast in dark mode */
+        filter: brightness(25%) contrast(150%); /* Darker and higher contrast in dark mode */
     }
 }
