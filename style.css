@@ -106,3 +106,30 @@ footer {
 .eink-mode nav ul li a, .eink-mode footer a {
     color: #000000 !important; /* Ensure links are also black */
 }
+
+/* Glass effect style */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1); /* Light background for the glass effect */
+    backdrop-filter: blur(10px); /* Blur effect for glass */
+    border-radius: 10px; /* Optional: rounded corners */
+    padding: 20px; /* Padding inside the glass effect container */
+}
+
+/* Image adjustment styles */
+.image-adjust {
+    transition: filter 0.3s ease; /* Smooth transition for filter changes */
+}
+
+/* Light mode image adjustments */
+@media (prefers-color-scheme: light) {
+    .image-adjust {
+        filter: brightness(120%) contrast(100%); /* Brighter in light mode */
+    }
+}
+
+/* Dark mode image adjustments */
+@media (prefers-color-scheme: dark) {
+    .image-adjust {
+        filter: brightness(50%) contrast(150%); /* Darker and higher contrast in dark mode */
+    }
+}
