@@ -1,9 +1,39 @@
+/* CSS Variables for easy theme management */
+:root {
+    --background-color: #fff;
+    --text-color: #000;
+    --link-color: #333;
+    --footer-bg-color: rgba(240, 240, 240, 0.95);
+    --button-bg-color: #007bff;
+    --button-text-color: #fff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: #fff;
+        --text-color: #000;
+        --link-color: #333;
+        --footer-bg-color: rgba(240, 240, 240, 0.95);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --text-color: #e0e0e0;
+        --link-color: #fff;
+        --footer-bg-color: rgba(51, 51, 51, 0.95);
+    }
+}
+
 /* Base styles */
 body, html {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 nav ul {
@@ -19,7 +49,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: inherit;
+    color: var(--link-color);
 }
 
 section {
@@ -34,10 +64,6 @@ section {
     background-color: rgba(255, 255, 255, 0.95);
 }
 
-.spacer {
-    height: 50px;
-}
-
 footer {
     display: flex;
     justify-content: center;
@@ -47,89 +73,41 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-}
-
-/* Light mode styles */
-@media (prefers-color-scheme: light) {
-    body {
-        background-color: #fff;
-        color: #000;
-    }
-
-    header, footer {
-        background-color: rgba(240, 240, 240, 0.95);
-        color: #333;
-    }
-
-    nav ul li a {
-        color: #333;
-    }
-
-    form button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-    }
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-
-    header, footer {
-        background-color: rgba(51, 51, 51, 0.95);
-        color: #fff;
-    }
-
-    nav ul li a {
-        color: #fff;
-    }
-
-    form button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-    }
+    background-color: var(--footer-bg-color);
 }
 
 /* eInk Mode Styles */
 .eink-mode, .eink-mode * {
-    background-image: none !important; /* Remove all background images */
-    background-color: #FFFFFF !important; /* Set background to white */
-    color: #000000 !important; /* Set text color to black */
+    background-image: none;
+    background-color: #FFFFFF;
+    color: #000000;
 }
 
 .eink-mode nav ul li a, .eink-mode footer a {
-    color: #000000 !important; /* Ensure links are also black */
+    color: #000000;
 }
 
 /* Glass effect style */
 .glass-effect {
-    background: rgba(255, 255, 255, 0.1); /* Light background for the glass effect */
-    backdrop-filter: blur(10px); /* Blur effect for glass */
-    border-radius: 10px; /* Optional: rounded corners */
-    padding: 20px; /* Padding inside the glass effect container */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 /* Image adjustment styles */
 .image-adjust {
-    transition: filter 0.3s ease; /* Smooth transition for filter changes */
+    transition: filter 0.3s ease;
 }
 
-/* Light mode image adjustments */
 @media (prefers-color-scheme: light) {
     .image-adjust {
-        filter: brightness(150%) contrast(100%); /* Brighter in light mode */
+        filter: brightness(150%) contrast(100%);
     }
 }
 
-/* Dark mode image adjustments */
 @media (prefers-color-scheme: dark) {
     .image-adjust {
-        filter: brightness(25%) contrast(150%); /* Darker and higher contrast in dark mode */
+        filter: brightness(25%) contrast(150%);
     }
 }
