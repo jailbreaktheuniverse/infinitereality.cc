@@ -118,7 +118,7 @@ footer {
     }
 
     nav ul li a {
-        color: var(--link-color); /* Use dark mode link color */
+        color: var(--link-color) !important; /* Use dark mode link color with higher specificity */
     }
 
     footer {
