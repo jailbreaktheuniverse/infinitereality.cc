@@ -9,17 +9,6 @@
     --content-background-color: rgba(255, 255, 255, 0.8); /* Light mode content background */
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background-color: #121212; /* Dark mode background color */
-        --text-color: #e0e0e0; /* Dark mode text color */
-        --link-color: #b6d3f0; /* Brighter blue for links in dark mode */
-        --footer-bg-color: rgba(51, 51, 51, 0.95); /* Dark mode footer background color */
-        --content-background-color: rgba(20, 20, 20, 0.8); /* Dark mode content background */
-    }
-}
-
 /* Base styles */
 body, html {
     height: 100%; /* Full height for body and html */
@@ -43,7 +32,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none; /* Remove underline from links */
-   /* color: var(--link-color); /* Use link color variable */
+    color: var(--link-color); /* Use link color variable */
 }
 
 /* Visited link color */
@@ -113,19 +102,24 @@ footer {
     padding: 20px; /* Padding inside glass effect */
 }
 
-/* Image adjustment styles */
-.image-adjust {
-    transition: filter 0.3s ease; /* Smooth transition for filter */
-}
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212; /* Dark mode background color */
+        --text-color: #e0e0e0; /* Dark mode text color */
+        --link-color: #b6d3f0; /* Brighter blue for links in dark mode */
+        --footer-bg-color: rgba(51, 51, 51, 0.95); /* Dark mode footer background color */
+        --content-background-color: rgba(20, 20, 20, 0.8); /* Dark mode content background */
+    }
 
-@media (prefers-color-scheme: light) {
     .image-adjust {
-        filter: brightness(150%) contrast(100%); /* Light mode image adjustments */
+        filter: brightness(25%) contrast(150%); /* Dark mode image adjustments */
     }
 }
 
-@media (prefers-color-scheme: dark) {
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
     .image-adjust {
-        filter: brightness(25%) contrast(150%); /* Dark mode image adjustments */
+        filter: brightness(150%) contrast(100%); /* Light mode image adjustments */
     }
 }
