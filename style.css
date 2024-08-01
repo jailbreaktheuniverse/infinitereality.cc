@@ -14,7 +14,7 @@
     :root {
         --background-color: #121212;
         --text-color: #e0e0e0;
-        --link-color: #66b2ff; /* Brighter blue for links */
+        --link-color: #b6d3f0; /* Brighter blue for links */
         --footer-bg-color: rgba(51, 51, 51, 0.95);
         --content-background-color: rgba(20, 20, 20, 0.8); /* Dark mode content background */
     }
