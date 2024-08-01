@@ -1,130 +1,131 @@
 /* CSS Variables for easy theme management */
 :root {
-    --background-color: #fff;
-    --text-color: #000;
-    --link-color: #333;
-    --footer-bg-color: rgba(240, 240, 240, 0.95);
-    --button-bg-color: #007bff;
-    --button-text-color: #fff;
+    --background-color: #fff; /* Light mode background color */
+    --text-color: #000; /* Light mode text color */
+    --link-color: #333; /* Light mode link color */
+    --footer-bg-color: rgba(240, 240, 240, 0.95); /* Light mode footer background color */
+    --button-bg-color: #007bff; /* Button background color */
+    --button-text-color: #fff; /* Button text color */
     --content-background-color: rgba(255, 255, 255, 0.8); /* Light mode content background */
 }
 
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
     :root {
-        --background-color: #121212;
-        --text-color: #e0e0e0;
-        --link-color: #b6d3f0; /* Brighter blue for links */
-        --footer-bg-color: rgba(51, 51, 51, 0.95);
+        --background-color: #121212; /* Dark mode background color */
+        --text-color: #e0e0e0; /* Dark mode text color */
+        --link-color: #b6d3f0; /* Brighter blue for links in dark mode */
+        --footer-bg-color: rgba(51, 51, 51, 0.95); /* Dark mode footer background color */
         --content-background-color: rgba(20, 20, 20, 0.8); /* Dark mode content background */
-    }
-
-    a:visited {
-        color: #d480ff; /* Brighter purple for visited links */
     }
 }
 
 /* Base styles */
 body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    height: 100%; /* Full height for body and html */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Set font family */
+    background-color: var(--background-color); /* Use background color variable */
+    color: var(--text-color); /* Use text color variable */
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flexbox layout for navigation */
+    justify-content: center; /* Center align navigation items */
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 15px; /* Space out navigation items */
 }
 
 nav ul li a {
-    text-decoration: none;
-    color: var(--link-color);
+    text-decoration: none; /* Remove underline from links */
+   /* color: var(--link-color); /* Use link color variable */
+}
+
+/* Visited link color */
+a:visited {
+    color: #d480ff; /* Brighter purple for visited links */
 }
 
 section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin: 20px 0;
-    background-color: var(--content-background-color);
+    display: flex; /* Flexbox layout for sections */
+    flex-direction: column; /* Column direction for flex items */
+    align-items: center; /* Center align items */
+    justify-content: center; /* Center justify items */
+    padding: 20px; /* Padding inside section */
+    margin: 20px 0; /* Margin outside section */
+    background-color: var(--content-background-color); /* Use content background color variable */
 }
 
 .background-image-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    position: absolute; /* Absolute positioning */
+    top: 0; /* Top edge of the viewport */
+    left: 0; /* Left edge of the viewport */
+    z-index: -1; /* Place behind other content */
 }
 
 .content {
-    z-index: 1;
-    position: relative;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1; /* Place above background image */
+    position: relative; /* Relative positioning */
+    padding: 20px; /* Padding inside content */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
 }
 
 .spacer {
-    height: 50px;
+    height: 50px; /* Fixed height spacer */
 }
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--footer-bg-color);
+    display: flex; /* Flexbox layout for footer */
+    justify-content: center; /* Center align footer content */
+    align-items: center; /* Center align items in footer */
+    text-align: center; /* Center text in footer */
+    padding: 10px 0; /* Vertical padding */
+    position: fixed; /* Fixed position at the bottom */
+    bottom: 0; /* Align to bottom of the viewport */
+    width: 100%; /* Full width */
+    background-color: var(--footer-bg-color); /* Use footer background color variable */
 }
 
 /* eInk Mode Styles */
 .eink-mode, .eink-mode * {
-    background-image: none;
-    background-color: #FFFFFF;
-    color: #000000;
+    background-image: none; /* Remove background images */
+    background-color: #FFFFFF; /* White background */
+    color: #000000; /* Black text */
 }
 
 .eink-mode nav ul li a, .eink-mode footer a {
-    color: #000000;
+    color: #000000; /* Black links */
 }
 
 /* Glass effect style */
 .glass-effect {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside glass effect */
 }
 
 /* Image adjustment styles */
 .image-adjust {
-    transition: filter 0.3s ease;
+    transition: filter 0.3s ease; /* Smooth transition for filter */
 }
 
 @media (prefers-color-scheme: light) {
     .image-adjust {
-        filter: brightness(150%) contrast(100%);
+        filter: brightness(150%) contrast(100%); /* Light mode image adjustments */
     }
 }
 
 @media (prefers-color-scheme: dark) {
     .image-adjust {
-        filter: brightness(25%) contrast(150%);
+        filter: brightness(25%) contrast(150%); /* Dark mode image adjustments */
     }
 }
