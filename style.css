@@ -112,6 +112,19 @@ footer {
         --content-background-color: rgba(20, 20, 20, 0.8); /* Dark mode content background */
     }
 
+    body, html {
+        background-color: var(--background-color); /* Use dark mode background color */
+        color: var(--text-color); /* Use dark mode text color */
+    }
+
+    nav ul li a {
+        color: var(--link-color); /* Use dark mode link color */
+    }
+
+    footer {
+        background-color: var(--footer-bg-color); /* Use dark mode footer background color */
+    }
+
     .image-adjust {
         filter: brightness(25%) contrast(150%); /* Dark mode image adjustments */
     }
