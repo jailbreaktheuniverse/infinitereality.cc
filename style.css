@@ -59,12 +59,36 @@ section {
     z-index: -1; /* Place behind other content */
 }
 
+/* Add blur effect to the background images */
+.background-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(10px);
+    z-index: -1;
+}
+
 .content {
     z-index: 1; /* Place above background image */
     position: relative; /* Relative positioning */
     padding: 20px; /* Padding inside content */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+/* Add frosted glass effect to the content */
+.frosted-glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.3); /* Adjust the transparency as needed */
+    backdrop-filter: blur(10px); /* Adjust the blur radius as needed */
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px; /* Optional: Add rounded corners */
+    padding: 20px; /* Optional: Add padding for content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
 .spacer {
@@ -92,14 +116,6 @@ footer {
 
 .eink-mode nav ul li a, .eink-mode footer a {
     color: #000000; /* Black links */
-}
-
-/* Glass effect style */
-.glass-effect {
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Blur effect */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding inside glass effect */
 }
 
 /* Dark mode adjustments */
