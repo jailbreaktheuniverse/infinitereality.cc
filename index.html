@@ -1,74 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="5;url=/infinitereality.html" />
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#470244">
-<meta name="msapplication-TileColor" content="#470244">
-<meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#470244">
+    <meta name="msapplication-TileColor" content="#470244">
+    <meta name="theme-color" content="#ffffff">
     <title>infinitereality</title>
-     <!-- Open Graph meta tags -->
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="infinitereality" />
+    <meta name="description" content="infinitereality music" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://infinitereality.cc" />
     <meta property="og:title" content="infinitereality music" />
     <meta property="og:description" content="infinitereality music" />
-    <meta property="og:url" content="https://infinitereality.cc" />
     <meta property="og:image" content="https://infinitereality.cc/android-chrome-512x512.png" />
-    <!-- Recommended to specify image dimensions -->
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://infinitereality.cc/" />
+    <meta name="twitter:title" content="infinitereality" />
+    <meta name="twitter:description" content="infinitereality music" />
+    <meta name="twitter:image" content="https://infinitereality.cc/android-chrome-512x512.png" />
+    <link rel="stylesheet" href="style.css">
     <style>
         body, html { height: 100%; margin: 0; }
         canvas { width: 100%; height: 100%; }
         /* Light mode styles */
-    @media (prefers-color-scheme: light) {
-        body {
-            background-color: #fff;
-            color: #000;
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+            header, footer {
+                background-color: #f0f0f0;
+                color: #333;
+            }
+            nav ul li a {
+                color: #333;
+            }
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
         }
-    
-        header, footer {
-            background-color: #f0f0f0;
-            color: #333;
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            header, footer {
+                background-color: #333;
+                color: #fff;
+            }
+            nav ul li a {
+                color: #fff;
+            }
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
         }
-    
-        nav ul li a {
-            color: #333;
-        }
-    
-        form button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
-    }
-    
-    /* Dark mode styles */
-    @media (prefers-color-scheme: dark) {
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-    
-        header, footer {
-            background-color: #333;
-            color: #fff;
-        }
-    
-        nav ul li a {
-            color: #fff;
-        }
-    
-        form button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
-    }
     </style>
 </head>
 <body>
